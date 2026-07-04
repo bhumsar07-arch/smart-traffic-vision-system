@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.db
+*.db-shm
+*.db-wal
+models/*.pt
+videos/*.mp4
+outputs/*
+!outputs/.gitkeep
+.idea/
+.vscode/
