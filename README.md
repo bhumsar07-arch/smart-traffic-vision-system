@@ -172,6 +172,4 @@ VisionTrafficAI/
 - RTSP ingestion, reconnect policy, metrics, containers, and GPU deployment
 - Multi-camera coordination and reinforcement-learning signal optimization
 
-## License
 
-This interview portfolio project is provided for educational and demonstration use. Verify model and dataset licenses before commercial deployment.
