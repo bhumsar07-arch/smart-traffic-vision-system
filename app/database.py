@@ -70,6 +70,8 @@ class TrafficDatabase:
     def initialize(self) -> None:
         """Create the statistics table and timestamp index when absent."""
         with self._connection() as connection:
+            connection.execute("PRAGMA journal_mode=WAL;")
+            connection.execute("PRAGMA synchronous=NORMAL;")
             connection.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS traffic_statistics (
@@ -99,6 +101,19 @@ class TrafficDatabase:
                 values,
             )
             return int(cursor.lastrowid or 0)
+
+    def insert_batch(self, statistics_list: list[FrameStatistics]) -> None:
+        """Insert multiple frame records in a single atomic transaction."""
+        if not statistics_list:
+            return
+        values = [asdict(record) for record in statistics_list]
+        with self._connection() as connection:
+            connection.executemany(
+                """INSERT INTO traffic_statistics
+                (timestamp, vehicle_count, cars, bikes, buses, trucks, density, green_signal_time)
+                VALUES (:timestamp, :vehicle_count, :cars, :bikes, :buses, :trucks, :density, :green_signal_time)""",
+                values,
+            )
 
     def latest(self) -> dict[str, object] | None:
         """Return the newest statistics record or None for an empty database."""

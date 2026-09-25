@@ -169,7 +169,7 @@ VisionTrafficAI/
 - Emergency-vehicle recognition with a dedicated validated dataset
 - Direction-specific counts and wrong-way detection
 - Batched database writes and asynchronous processing for high-throughput streams
-- RTSP ingestion, reconnect policy, metrics, containers, and GPU deployment
+- RTSP ingestion, reconnect policy, metrics, background service daemons, and GPU deployment
 - Multi-camera coordination and reinforcement-learning signal optimization
 
 

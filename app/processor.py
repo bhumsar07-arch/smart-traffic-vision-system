@@ -86,7 +86,9 @@ class TrafficVideoProcessor:
                 break
             frame_number += 1
             detections = self.detector.detect_and_track(frame)
+            active_ids = {d.track_id for d in detections if d.track_id is not None}
             self.trajectory_tracker.update(detections)
+            self.trajectory_tracker.prune(active_ids)
             counter.update(detections)
             density = self.density_estimator.calculate(len(detections))
             green_seconds = self.signal_controller.recommend(density)
